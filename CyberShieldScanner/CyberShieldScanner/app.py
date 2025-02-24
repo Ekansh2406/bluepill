@@ -6,7 +6,7 @@ import time
 import pefile
 import yara
 from werkzeug.utils import secure_filename
-from pdfminer.high_level import extract_text
+#from pdfminer.high_level import extract_text
 
 app = Flask(__name__)
 
@@ -226,12 +226,12 @@ def upload_file():
             if vt_verdict:
                 return jsonify({
                     'verdict': 'Malicious',
-                    'risk_report': ['VirusTotal detected malicious file']
+                    'risk_report': ['Hashing detected malicious file']
                 }), 200
             else:
                 return jsonify({
                     'verdict': 'Clean',
-                    'risk_report': ['VirusTotal indicates file is clean']
+                    'risk_report': ['Hashing indicates file is clean']
                 }), 200
 
         # Step 2: If VirusTotal did not return a result, try Hybrid Analysis
@@ -241,12 +241,12 @@ def upload_file():
             if ha_verdict:
                 return jsonify({
                     'verdict': 'Malicious',
-                    'risk_report': ['Hybrid Analysis detected malicious file']
+                    'risk_report': ['Hashing detected malicious file']
                 }), 200
             else:
                 return jsonify({
                     'verdict': 'Clean',
-                    'risk_report': ['Hybrid Analysis indicates file is clean']
+                    'risk_report': ['Hashing indicates file is clean']
                 }), 200
 
         # Step 3: If neither API returned a result, run internal analysis.
